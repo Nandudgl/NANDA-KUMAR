@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "unit": {
+      "title": "Unit",
+      "description": "A unit of the Deep Learning college curriculum",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique unit identifier" },
+        "unitNumber": { "type": "number", "description": "Unit index from 1 to 5" },
+        "title": { "type": "string", "description": "Title of the unit" },
+        "description": { "type": "string", "description": "Summary of concepts covered" },
+        "totalTopics": { "type": "number", "description": "Number of topics in this unit" },
+        "createdAt": { "type": "string", "description": "ISO timestamp" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "unitNumber", "title", "description"]
+    },
+    "topic": {
+      "title": "Topic",
+      "description": "A specific lecture topic inside a curriculum unit",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Topic ID" },
+        "unitId": { "type": "string", "description": "Parent unit ID" },
+        "unitNumber": { "type": "number", "description": "Parent unit number" },
+        "order": { "type": "number", "description": "Display order within the unit" },
+        "title": { "type": "string", "description": "Topic title" },
+        "shortSummary": { "type": "string", "description": "Short overview" },
+        "estimatedMinutes": { "type": "number", "description": "Estimated study time in minutes" },
+        "bloomLevel": { "type": "string", "description": "Target Bloom taxonomy level" }
+      },
+      "required": ["id", "unitId", "unitNumber", "order", "title", "shortSummary"]
+    },
+    "note": {
+      "title": "Note",
+      "description": "Comprehensive textbook-grade lecture notes for a topic",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Note identifier" },
+        "topicId": { "type": "string", "description": "Associated topic ID" },
+        "unitId": { "type": "string", "description": "Associated unit ID" },
+        "unitNumber": { "type": "number", "description": "Unit number" },
+        "title": { "type": "string", "description": "Title of note" },
+        "content": { "type": "string", "description": "Markdown formatted lecture note content" },
+        "keyTakeaways": { "type": "array", "description": "List of bullet point takeaways" },
+        "formulas": { "type": "array", "description": "Mathematical equations in LaTeX" },
+        "createdAt": { "type": "string", "description": "ISO timestamp" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "topicId", "unitId", "title", "content"]
+    },
+    "mcq": {
+      "title": "MultipleChoiceQuestion",
+      "description": "Curated multiple-choice question with detailed explanation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "MCQ ID" },
+        "question": { "type": "string", "description": "Question prompt" },
+        "optionA": { "type": "string", "description": "Option A" },
+        "optionB": { "type": "string", "description": "Option B" },
+        "optionC": { "type": "string", "description": "Option C" },
+        "optionD": { "type": "string", "description": "Option D" },
+        "correctAnswer": { "type": "string", "description": "A, B, C, or D" },
+        "explanation": { "type": "string", "description": "Pedagogical explanation" },
+        "unitId": { "type": "string", "description": "Unit ID" },
+        "unitNumber": { "type": "number", "description": "Unit number 1-5" },
+        "topicId": { "type": "string", "description": "Associated topic ID" },
+        "topicTitle": { "type": "string", "description": "Associated topic title" },
+        "difficulty": { "type": "string", "description": "Easy, Medium, or Hard" },
+        "bloomLevel": { "type": "string", "description": "K1 through K6" },
+        "marks": { "type": "number", "description": "Marks awarded" }
+      },
+      "required": ["id", "question", "optionA", "optionB", "optionC", "optionD", "correctAnswer", "explanation", "unitId"]
+    },
+    "question": {
+      "title": "QuestionAnswer",
+      "description": "College exam question (2-mark or long 5/8/13/16-mark) with model answer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Question ID" },
+        "question": { "type": "string", "description": "Exam question" },
+        "answer": { "type": "string", "description": "Structured model answer" },
+        "marks": { "type": "number", "description": "Marks (2, 5, 8, 13, 15, 16)" },
+        "unitId": { "type": "string", "description": "Unit ID" },
+        "unitNumber": { "type": "number", "description": "Unit number 1-5" },
+        "topicId": { "type": "string", "description": "Associated topic ID" },
+        "bloomLevel": { "type": "string", "description": "K1 through K6" },
+        "difficulty": { "type": "string", "description": "Easy, Medium, Hard" },
+        "status": { "type": "string", "description": "published or draft" }
+      },
+      "required": ["id", "question", "answer", "marks", "unitId"]
+    },
+    "quizAttempt": {
+      "title": "QuizAttempt",
+      "description": "Record of a student quiz session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Attempt ID" },
+        "userId": { "type": "string", "description": "Student user ID" },
+        "mode": { "type": "string", "description": "unit, topic, or comprehensive" },
+        "unitNumber": { "type": "number", "description": "Unit number if unit-specific" },
+        "totalQuestions": { "type": "number", "description": "Total questions in attempt" },
+        "score": { "type": "number", "description": "Correct answers" },
+        "percentage": { "type": "number", "description": "Score percentage" },
+        "timeSpentSeconds": { "type": "number", "description": "Duration in seconds" },
+        "completedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "userId", "totalQuestions", "score", "percentage", "completedAt"]
+    },
+    "userProfile": {
+      "title": "UserProfile",
+      "description": "User preferences and progress tracker",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "User UID" },
+        "role": { "type": "string", "description": "student or instructor" },
+        "displayName": { "type": "string", "description": "Name of student" },
+        "email": { "type": "string", "description": "Email address" },
+        "bookmarks": { "type": "array", "description": "IDs of bookmarked items" },
+        "completedTopics": { "type": "array", "description": "IDs of completed topics" },
+        "createdAt": { "type": "string", "description": "Account creation timestamp" }
+      },
+      "required": ["id", "role"]
+    }
+  },
+  "firestore": {
+    "/units/{unitId}": {
+      "schema": "unit",
+      "description": "Curriculum units collection"
+    },
+    "/topics/{topicId}": {
+      "schema": "topic",
+      "description": "Curriculum topics collection"
+    },
+    "/notes/{noteId}": {
+      "schema": "note",
+      "description": "Comprehensive topic notes collection"
+    },
+    "/mcqs/{mcqId}": {
+      "schema": "mcq",
+      "description": "Question bank of multiple-choice questions"
+    },
+    "/questions/{questionId}": {
+      "schema": "question",
+      "description": "College exam questions and model answers"
+    },
+    "/users/{userId}": {
+      "schema": "userProfile",
+      "description": "Student profiles and study settings"
+    },
+    "/users/{userId}/quizAttempts/{attemptId}": {
+      "schema": "quizAttempt",
+      "description": "Student quiz attempts subcollection"
+    }
+  }
+}

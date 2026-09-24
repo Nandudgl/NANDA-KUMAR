@@ -1,0 +1,6 @@
+{
+  "name": "Deep Learning Learning Portal",
+  "description": "An interactive educational portal for college students to learn Deep Learning with unit-wise notes, MCQ practice, question banks, timed quizzes, and AI study assistance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
